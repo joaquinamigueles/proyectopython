@@ -2,6 +2,6 @@
 
 Listado:
 
--Primer elemento
+- Primer elemento
 
--Segundo elemento 
+- Segundo elemento 
