@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8"><title>Mediciones</title></head>
+  <body>
+    <h1>Mediciones de energía</h1>
+    <ul>
+      {% for m in mediciones %}
+        <li>{{ m.fecha }} – {{ m.edificio }} – {{ m.potencia_kw }} kW – {{ m.energia_kwh }} kWh</li>
+      {% empty %}
+        <li>No hay mediciones.</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
+

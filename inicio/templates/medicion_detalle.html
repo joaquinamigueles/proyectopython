@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8"><title>Detalle medición</title></head>
+  <body>
+    <h1>Detalle de medición</h1>
+    <p><b>Fecha:</b> {{ medicion.fecha }}</p>
+    <p><b>Edificio:</b> {{ medicion.edificio }}</p>
+    <p><b>Equipo:</b> {{ medicion.equipo }}</p>
+    <p><b>Potencia:</b> {{ medicion.potencia_kw }} kW</p>
+    <p><b>Energía:</b> {{ medicion.energia_kwh }} kWh</p>
+    <p><b>Ubicación:</b> {{ medicion.ubicacion }}</p>
+    <p><a href="{% url 'listar_mediciones' %}">Volver al listado</a></p>
+  </body>
+</html>

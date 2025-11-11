@@ -1,7 +1,15 @@
-# Titulo
+# Proyecto Eficiencia (Django)
 
-Listado:
+Pequeña app Django con patrón MVT que registra y lista mediciones energéticas.
 
-- Primer elemento
+## Requisitos
+- Python 3.13 
+- pip
 
-- Segundo elemento 
+## Instalación rápida
+```bash
+python -m venv .venv
+. .venv/Scripts/activate   # Windows
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
