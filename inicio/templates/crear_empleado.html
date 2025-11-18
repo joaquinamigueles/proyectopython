@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+  <h1>Crear empleado</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ formulario.as_p }}
+    <button type="submit">Guardar empleado</button>
+  </form>
+{% endblock %}

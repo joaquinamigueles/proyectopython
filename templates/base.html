@@ -6,12 +6,14 @@
   </head>
   <body>
     <nav>
-      <a href="{% url 'inicio' %}">Inicio</a>
-      <a href="{% url 'crear_medicion' %}">Crear medición</a>
-      <a href="{% url 'listar_mediciones' %}">Listar mediciones</a>
+        <a href="{% url 'inicio' %}">Inicio</a> |
+        <a href="{% url 'crear_medicion' %}">Nueva medición</a> |
+        <a href="{% url 'listar_mediciones' %}">Ver mediciones</a> |
+        <a href="{% url 'crear_usuario' %}">Nuevo usuario</a> |
+        <a href="{% url 'crear_empleado' %}">Nuevo empleado</a>
     </nav>
-    <hr>
+<hr>
+{% block contenido %}{% endblock %}
 
-    {% block contenido %}{% endblock %}
   </body>
 </html>

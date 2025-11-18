@@ -1,5 +1,5 @@
 from django import forms
-from .models import MedicionEnergetica
+from .models import MedicionEnergetica, Usuario, Empleado
 
 class MedicionForm(forms.Form):
     edificio = forms.CharField(max_length=80, label="Lugar (edificio)")
@@ -16,3 +16,14 @@ class ActualizarMedicionForm(forms.ModelForm):
     class Meta:
         model = MedicionEnergetica
         fields = ["edificio", "equipo", "ubicacion"]
+
+class UsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ["nombre", "email"]
+
+
+class EmpleadoForm(forms.ModelForm):
+    class Meta:
+        model = Empleado
+        fields = ["nombre", "rol"]

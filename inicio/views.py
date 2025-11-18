@@ -2,8 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.urls import reverse_lazy
 from django.views.generic.edit import UpdateView, DeleteView
-from .models import MedicionEnergetica
-from .forms import MedicionForm, BuscarMedicionForm, ActualizarMedicionForm
+
+from .models import MedicionEnergetica, Usuario, Empleado
+from .forms import (
+    MedicionForm,
+    BuscarMedicionForm,
+    ActualizarMedicionForm,
+    UsuarioForm,
+    EmpleadoForm,
+)
+
 
 def inicio(request):
     return render(request, "inicio.html")
@@ -55,3 +63,26 @@ class EliminarMedicion(DeleteView):
     model = MedicionEnergetica
     template_name = "eliminar_medicion.html"
     success_url = reverse_lazy("listar_mediciones")
+
+def crear_usuario(request):
+    if request.method == "POST":
+        formulario = UsuarioForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect("inicio")
+    else:
+        formulario = UsuarioForm()
+
+    return render(request, "crear_usuario.html", {"formulario": formulario})
+
+
+def crear_empleado(request):
+    if request.method == "POST":
+        formulario = EmpleadoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect("inicio")
+    else:
+        formulario = EmpleadoForm()
+
+    return render(request, "crear_empleado.html", {"formulario": formulario})
