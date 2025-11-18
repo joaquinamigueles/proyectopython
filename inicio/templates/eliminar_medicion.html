@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+  <h1>Eliminar medición</h1>
+
+  <p>
+    ¿Realmente querés eliminar la medición
+    <b>#{{ object.id }}</b> ({{ object.edificio }} - {{ object.equipo }})?
+  </p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+    <a href="{% url 'ver_medicion' object.id %}">Cancelar</a>
+  </form>
+{% endblock %}
