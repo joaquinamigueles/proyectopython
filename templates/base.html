@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Proyecto Eficiencia{% endblock %}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'inicio' %}">Inicio</a>
+      <a href="{% url 'crear_medicion' %}">Crear medición</a>
+      <a href="{% url 'listar_mediciones' %}">Listar mediciones</a>
+    </nav>
+    <hr>
+
+    {% block contenido %}{% endblock %}
+  </body>
+</html>

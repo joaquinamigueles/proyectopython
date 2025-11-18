@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head><meta charset="utf-8"><title>Mediciones</title></head>
-  <body>
-    <h1>Mediciones de energía</h1>
-    <ul>
-      {% for m in mediciones %}
-        <li>{{ m.fecha }} – {{ m.edificio }} – {{ m.potencia_kw }} kW – {{ m.energia_kwh }} kWh</li>
-      {% empty %}
-        <li>No hay mediciones.</li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "base.html" %}
 
+{% block title %}Mediciones{% endblock %}
+
+{% block contenido %}
+<h1>Mediciones de energía</h1>
+
+<form method="GET">
+  {{ formulario.as_p }}
+  <input type="submit" value="Buscar">
+</form>
+
+<ul>
+  {% for m in mediciones %}
+    <li>
+      <a href="{% url 'ver_medicion' m.pk %}">
+        {{ m.fecha }} – {{ m.edificio }} – {{ m.equipo }}
+      </a>
+    </li>
+  {% empty %}
+    <li>No hay mediciones.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
