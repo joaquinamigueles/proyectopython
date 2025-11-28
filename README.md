@@ -123,6 +123,12 @@ proyecto/
 
 
 ---
+## 🎥 Video de demostración
+
+Video mostrando el funcionamiento de la app (máx. 10 minutos):
+
+👉 [Ver video de la demo](https://drive.google.com/file/d/1CffFbwNRHzhY0tkBD6GWlsZM0DgiCvM-/view?usp=drive_link)
+
 
 ## ⚙️ Instalación del Proyecto
 
