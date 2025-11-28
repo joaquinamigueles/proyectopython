@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Crear medición{% endblock %}
+{% block title %}Nueva medición{% endblock %}
 
 {% block contenido %}
-<h1>Crear medición</h1>
+<h1>Crear nueva medición</h1>
 
-<form action="" method="POST">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ formulario.as_p }}
-  <input type="submit" value="Crear">
+  {{ form.as_p }}
+  <button type="submit">Guardar</button>
 </form>
+
 {% endblock %}

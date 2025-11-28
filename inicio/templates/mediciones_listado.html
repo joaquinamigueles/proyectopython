@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Mediciones{% endblock %}
+{% block title %}Pages - Mediciones{% endblock %}
 
 {% block contenido %}
-<h1>Mediciones de energía</h1>
+<h1>Pages (Mediciones)</h1>
 
-<form method="GET">
-  {{ formulario.as_p }}
-  <input type="submit" value="Buscar">
-</form>
+{% if mediciones %}
+  <ul>
+    {% for m in mediciones %}
+      <li>
+        <h3>{{ m.edificio }} - {{ m.equipo }}</h3>
+        <p>{{ m.descripcion|striptags|truncatechars:100 }}</p>
 
-<ul>
-  {% for m in mediciones %}
-    <li>
-      <a href="{% url 'ver_medicion' m.pk %}">
-        {{ m.fecha }} – {{ m.edificio }} – {{ m.equipo }}
-      </a>
-    </li>
-  {% empty %}
-    <li>No hay mediciones.</li>
-  {% endfor %}
-</ul>
+        <a href="{% url 'page_detail' m.pk %}">Leer más</a>
+
+        {% if user.is_authenticated %}
+          | <a href="{% url 'actualizar_medicion' m.pk %}">Editar</a>
+          | <a href="{% url 'eliminar_medicion' m.pk %}">Borrar</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No hay páginas aún.</p>
+{% endif %}
 {% endblock %}
+

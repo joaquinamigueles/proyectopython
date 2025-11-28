@@ -1,15 +1,23 @@
 {% extends "base.html" %}
+
+{% block title %}Detalle medición{% endblock %}
+
 {% block contenido %}
-<h1>Detalle de medición</h1>
+<h1>{{ medicion.edificio }} - {{ medicion.equipo }}</h1>
 
-<p><b>ID:</b> {{ medicion.id }}</p>
-<p><b>Edificio:</b> {{ medicion.edificio }}</p>
-<p><b>Equipo:</b> {{ medicion.equipo }}</p>
 <p><b>Fecha:</b> {{ medicion.fecha }}</p>
+<p><b>Ubicación:</b> {{ medicion.ubicacion }}</p>
+<p><b>Potencia:</b> {{ medicion.potencia_kw }} kW</p>
+<p><b>Energía:</b> {{ medicion.energia_kwh }} kWh</p>
 
-<p>
-  <a href="{% url 'actualizar_medicion' medicion.id %}">Actualizar</a> |
-  <a href="{% url 'eliminar_medicion' medicion.id %}">Eliminar</a> |
-  <a href="{% url 'listar_mediciones' %}">Volver</a>
-</p>
+{% if medicion.imagen %}
+  <p><img src="{{ medicion.imagen.url }}" alt="Imagen medición" style="max-width:300px;"></p>
+{% endif %}
+
+<h2>Descripción</h2>
+<div>
+  {{ medicion.descripcion|safe }}
+</div>
+
+<p><a href="{% url 'pages_list' %}">Volver a Pages</a></p>
 {% endblock %}

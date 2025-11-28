@@ -1,7 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+from .models import MedicionEnergetica
+from .forms import MedicionForm
+from django.views.generic import ListView, UpdateView, DeleteView, TemplateView
+
+class ListaMediciones(ListView):
+    model = MedicionEnergetica
+    template_name = "mediciones_listado.html"
+    context_object_name = "mediciones"
+    ordering = ['-fecha']
+
 
 from .models import MedicionEnergetica, Usuario, Empleado
 from .forms import (
@@ -16,24 +28,22 @@ from .forms import (
 def inicio(request):
     return render(request, "inicio.html")
 
+class AboutView(TemplateView):
+    template_name = "about.html"
+
+@login_required   
 def crear_medicion(request):
     if request.method == "POST":
-        formulario = MedicionForm(request.POST)
-        if formulario.is_valid():
-            datos = formulario.cleaned_data
-            MedicionEnergetica.objects.create(
-                edificio=datos["edificio"],
-                equipo=datos["equipo"],
-                fecha=timezone.now(),
-                potencia_kw=0,
-                energia_kwh=0,
-                ubicacion=""
-            )
+        form = MedicionForm(request.POST, request.FILES)
+        if form.is_valid():
+            medicion = form.save(commit=False)
+            medicion.fecha = timezone.now()
+            medicion.save()
             return redirect("listar_mediciones")
     else:
-        formulario = MedicionForm()
+        form = MedicionForm()
 
-    return render(request, "crear_medicion.html", {"formulario": formulario})
+    return render(request, "crear_medicion.html", {"form": form})
 
 def listar_mediciones(request):
     formulario = BuscarMedicionForm(request.GET or None)
@@ -53,16 +63,18 @@ def ver_medicion(request, pk):
     medicion = get_object_or_404(MedicionEnergetica, pk=pk)
     return render(request, "medicion_detalle.html", {"medicion": medicion})
 
-class ActualizarMedicion(UpdateView):
+class ActualizarMedicion(LoginRequiredMixin, UpdateView):
     model = MedicionEnergetica
-    form_class = ActualizarMedicionForm
+    form_class = MedicionForm
     template_name = "actualizar_medicion.html"
     success_url = reverse_lazy("listar_mediciones")
 
-class EliminarMedicion(DeleteView):
+
+class EliminarMedicion(LoginRequiredMixin, DeleteView):
     model = MedicionEnergetica
     template_name = "eliminar_medicion.html"
     success_url = reverse_lazy("listar_mediciones")
+
 
 def crear_usuario(request):
     if request.method == "POST":
@@ -86,3 +98,22 @@ def crear_empleado(request):
         formulario = EmpleadoForm()
 
     return render(request, "crear_empleado.html", {"formulario": formulario})
+
+
+class ListaMediciones(ListView):
+    model = MedicionEnergetica
+    template_name = "mediciones_listado.html"
+    context_object_name = "mediciones"
+    ordering = ["-fecha"]
+
+class ActualizarMedicion(LoginRequiredMixin, UpdateView):  
+    model = MedicionEnergetica
+    template_name = "actualizar_medicion.html"
+    fields = ["edificio", "equipo", "potencia_kw", "energia_kwh", "ubicacion"]
+    success_url = reverse_lazy("listar_mediciones")
+
+class EliminarMedicion(LoginRequiredMixin, DeleteView):   
+    model = MedicionEnergetica
+    template_name = "eliminar_medicion.html"
+    success_url = reverse_lazy("listar_mediciones")
+

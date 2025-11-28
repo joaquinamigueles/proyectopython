@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'inicio'
+    'inicio',
+    'usuarios',
+    'ckeditor', 
+    'pages',
+    'mensajes',
 ]
 
 MIDDLEWARE = [
@@ -55,10 +59,11 @@ ROOT_URLCONF = 'seguimiento.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / "templates"],   
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -121,3 +126,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+# Redirecciones de autenticación
+LOGIN_URL = 'iniciar_sesion'      # nombre de la vista de login
+LOGIN_REDIRECT_URL = 'inicio'     # a dónde va después de loguearse
+LOGOUT_REDIRECT_URL = 'inicio'    # a dónde va después de hacer logout
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]

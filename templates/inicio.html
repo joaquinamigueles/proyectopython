@@ -1,8 +1,15 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Inicio{% endblock %}
 
 {% block contenido %}
-<h1>Proyecto Eficiencia Energética</h1>
-<p>Desde el menú superior podés crear una medición nueva o ver el listado.</p>
+<h1>Proyecto de Eficiencia Energética</h1>
+<img src="{% static 'img/eficienciafoto.jpeg' %}" width="600">
+
+<p>Bienvenido/a al sistema de mediciones y blog.</p>
+
+<ul>
+    <li><a href="{% url 'listar_mediciones' %}">Ver mediciones</a></li>
+    <li><a href="{% url 'pages_list' %}">Ver páginas</a></li>
+</ul>
 {% endblock %}
